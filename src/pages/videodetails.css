@@ -1,0 +1,25 @@
+.video-main{
+    align-items: center;
+    margin: auto;
+    padding: 2rem 3rem;
+}
+
+.attr-container{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: flex-end; */
+}
+
+.date{
+    justify-self: flex-start;
+    padding: 1rem 0.5rem;
+}
+
+.attr-items{
+    padding: 1rem 0.5rem;
+    justify-self: flex-end;
+}
+
+h2{
+    padding: 1rem 0rem;
+}
