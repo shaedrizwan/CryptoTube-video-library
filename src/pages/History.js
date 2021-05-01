@@ -4,7 +4,6 @@ import "../stylesheets/history.css";
 
 export function History(){
     const {state} = useVideo();
-    console.log(state)
     return(
         <>
         <h2>Your Watch History:</h2>

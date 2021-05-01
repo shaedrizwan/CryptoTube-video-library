@@ -14,6 +14,8 @@ const videoData = {
 const addVideo = (state,{type,payload}) =>{
     switch(type){
         case "addToHistory": return {...state,history:state.history.concat(payload)};
+        case "addToLiked": return {...state,likedVideos:state.likedVideos.concat(payload)};
+        case "addToWatchLater": return {...state,watchLater:state.watchLater.concat(payload)};
         default: console.log("Error in adding to the list");
     }
     return state;

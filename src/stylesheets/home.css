@@ -1,10 +1,11 @@
 .grid-card{
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .video-card{
-    max-width: 30%;
+    min-width: 300px;
     padding: 1rem;
     margin: 1rem;
     border: 2px solid rgb(255, 252, 252);
