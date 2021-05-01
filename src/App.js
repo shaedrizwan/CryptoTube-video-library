@@ -1,5 +1,5 @@
 import './App.css';
-import {Routes, Route,NavLink} from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 import {Home} from "./pages/Home";
 import {VideoDetails} from "./pages/VideoDetails";
 import {Explore} from "./pages/Explore";
@@ -7,37 +7,15 @@ import {History} from "./pages/History";
 import {LikedVideos} from "./pages/LikedVideos";
 import {Playlist} from "./pages/Playlist";
 import {WatchLater} from "./pages/WatchLater";
+import {NavAside} from "./nav";
 
 function App() {
-  const linkStyle = {
-    fontSize: '1.3rem',
-    fontWeight: 'bold',
-    padding: '1rem 0rem 0rem',
-    cursor: 'pointer',
-    color: "black",
-    textDecoration: "none"
-  }
-
-  const linkStyleActive = {
-    fontSize: '1.3rem',
-    fontWeight: 'bold',
-    padding: '1rem 0rem 0rem',
-    cursor: 'pointer',
-    color: "red",
-    textDecoration: "none"
-  }
   return ( 
     <div className="App">
       <nav>
-        <img src="/logo.png" width="150px" height="150px" alt="Cryptotube"/>
-        <NavLink style={linkStyle} activeStyle={linkStyleActive} to="/">Home</NavLink>
-        <NavLink style={linkStyle} activeStyle={linkStyleActive} to="explore">Explore</NavLink>
-        <NavLink style={linkStyle} activeStyle={linkStyleActive} to="playlist">Playlist</NavLink>
-        <NavLink style={linkStyle} activeStyle={linkStyleActive} to="watch-later">Watch Later</NavLink>
-        <NavLink style={linkStyle} activeStyle={linkStyleActive} to="liked-videos">Liked Videos</NavLink>
-        <NavLink style={linkStyle} activeStyle={linkStyleActive} to="history">History</NavLink>
+        <NavAside/>
       </nav>
-      <div class="main">
+      <div className="main">
          <Routes>
            <Route end path="/" element={<Home/>}/>
            <Route path="explore" element={<Explore/>}/>

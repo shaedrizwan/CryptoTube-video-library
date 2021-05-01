@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from 'react-router-dom';
+import {VideoProvider} from "./videoContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <VideoProvider>
+        <App />
+      </VideoProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
