@@ -1,0 +1,21 @@
+.grid-card{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.video-card{
+    max-width: 30%;
+    padding: 1rem;
+    margin: 1rem;
+    border: 2px solid rgb(255, 252, 252);
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.thumb-img{
+    max-width: 100%;
+    height: auto;
+    padding: 1rem;
+    border-radius: 10px;
+}

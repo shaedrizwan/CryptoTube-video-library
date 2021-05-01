@@ -1,4 +1,5 @@
 import {NavLink} from "react-router-dom";
+import logo from "./logo.png";
 
 export function NavAside(){
     const linkStyle = {
@@ -20,7 +21,7 @@ export function NavAside(){
       }
     return(
         <>
-        <img src="/logo.png" width="150px" height="150px" alt="Cryptotube"/>
+        <img src={logo} width="150px" height="150px" alt="Cryptotube"/>
         <NavLink style={linkStyle} activeStyle={linkStyleActive} to="/">Home</NavLink>
         <NavLink style={linkStyle} activeStyle={linkStyleActive} to="explore">Explore</NavLink>
         <NavLink style={linkStyle} activeStyle={linkStyleActive} to="playlist">Playlist</NavLink>

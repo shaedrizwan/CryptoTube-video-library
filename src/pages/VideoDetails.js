@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import {videosDB} from "./videosDB";
-import './videodetails.css';
+import '../stylesheets/videodetails.css';
 
 export function VideoDetails(){
     const {slug} = useParams();
@@ -10,9 +10,9 @@ export function VideoDetails(){
     return(
         <div className="video-main">
             <iframe src={video.videoUrl}
-                frameborder='0'
+                frameBorder='0'
                 allow='autoplay; encrypted-media'
-                allowfullscreen
+                allowFullScreen
                 title='video'
                 width="100%"
                 height="520px"
