@@ -9,7 +9,10 @@ export function useVideo(){
 const videoData = {
     likedVideos:[],
     history:[],
-    watchLater:[]
+    watchLater:[],
+    playlist:{
+        myPlaylist:[]
+    }
 }
 const addVideo = (state,{type,payload}) =>{
     switch(type){
