@@ -8,6 +8,7 @@ import {LikedVideos} from "./pages/LikedVideos";
 import {Playlist} from "./pages/Playlist";
 import {WatchLater} from "./pages/WatchLater";
 import {NavAside} from "./nav";
+import {Login} from "./pages/Login";
 
 function App() {
   return ( 
@@ -18,12 +19,13 @@ function App() {
       <div className="main">
          <Routes>
            <Route end path="/" element={<Home/>}/>
-           <Route path="explore" element={<Explore/>}/>
-           <Route path="history" element={<History/>}/>
-           <Route path="liked-videos" element={<LikedVideos/>}/>
-           <Route path="playlist" element={<Playlist/>}/>
-           <Route path="watch-later" element={<WatchLater/>}/>
+           <Route path="/explore" element={<Explore/>}/>
+           <Route path="/history" element={<History/>}/>
+           <Route path="/liked-videos" element={<LikedVideos/>}/>
+           <Route path="/playlist" element={<Playlist/>}/>
+           <Route path="/watch-later" element={<WatchLater/>}/>
            <Route path="/video/:slug" element={<VideoDetails/>}/>
+           <Route path="/login" element={<Login/>}></Route>
          </Routes>
       </div>
     </div>

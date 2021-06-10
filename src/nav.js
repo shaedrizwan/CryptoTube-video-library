@@ -28,6 +28,7 @@ export function NavAside(){
         <NavLink style={linkStyle} activeStyle={linkStyleActive} to="watch-later">Watch Later</NavLink>
         <NavLink style={linkStyle} activeStyle={linkStyleActive} to="liked-videos">Liked Videos</NavLink>
         <NavLink style={linkStyle} activeStyle={linkStyleActive} to="history">History</NavLink>
+        <NavLink style={linkStyle} activeStyle={linkStyleActive} to="login">Login</NavLink>
       </>
     )
 }

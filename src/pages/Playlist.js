@@ -1,5 +1,4 @@
 import {useVideo} from "../videoContext";
-import {Link} from "react-router-dom";
 import "../stylesheets/history.css";
 
 export function Playlist(){
