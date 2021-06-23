@@ -1,5 +1,5 @@
 import './App.css';
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route,Navigate} from "react-router-dom";
 import {Home} from "./pages/Home";
 import {VideoDetails} from "./pages/VideoDetails";
 import {Explore} from "./pages/Explore";
@@ -9,8 +9,14 @@ import {Playlist} from "./pages/Playlist";
 import {WatchLater} from "./pages/WatchLater";
 import {NavAside} from "./nav";
 import {Login} from "./pages/Login";
+import {NoMatch} from "./pages/404";
 
 function App() {
+  const login = false;
+
+  function PrivateRoute({login,...props}){
+    return login?<Route {...props}/>:<Navigate replace to="/login"/>
+  }
   return ( 
     <div className="App">
       <nav>
@@ -21,11 +27,12 @@ function App() {
            <Route end path="/" element={<Home/>}/>
            <Route path="/explore" element={<Explore/>}/>
            <Route path="/history" element={<History/>}/>
-           <Route path="/liked-videos" element={<LikedVideos/>}/>
+           <PrivateRoute path="/liked-videos" element={<LikedVideos/>} login = {login}/>
            <Route path="/playlist" element={<Playlist/>}/>
            <Route path="/watch-later" element={<WatchLater/>}/>
            <Route path="/video/:slug" element={<VideoDetails/>}/>
            <Route path="/login" element={<Login/>}></Route>
+           <Route path="*" element={<NoMatch/>}></Route>
          </Routes>
       </div>
     </div>

@@ -1,5 +1,5 @@
-import {createContext, useContext, useReducer} from "react";
-
+import {createContext, useContext, useEffect, useReducer,useState} from "react";
+import axios from "axios";
 const videoContext = createContext();
 
 export function useVideo(){
@@ -26,9 +26,18 @@ const addVideo = (state,{type,payload}) =>{
 
 
 export function VideoProvider({children}){
+
+    const [videosDB,setVideosDB] = useState([])
+    useEffect(()=>{
+        (async function(){
+            const {data} = await axios.get('https://cryptotube-backend.herokuapp.com/video');
+            setVideosDB(data.videos)
+        })()
+    },[])
+
     const [state,dispatch] = useReducer(addVideo,videoData);
     return(
-        <videoContext.Provider value={{state,dispatch}}>
+        <videoContext.Provider value={{state,dispatch,videosDB}}>
             {children}
         </videoContext.Provider>
     )
