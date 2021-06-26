@@ -7,14 +7,14 @@ export function History(){
     return(
         <>
         <h2>Your Watch History:</h2>
-        <div class="grid-card">
-            {state.history.map(video=>{
-                return <div class="video-card" key={video.id}>
-                        <Link to={`/video/${video.slug}`}>
-                        <img class="thumb-img" src={video.imageUrl} alt={video.slug}/>
-                        <div>{video.name}</div>
-                        <div>{video.channel}</div>
-                        <div>{video.date}</div>
+        <div className="grid-card">
+            {state.history.map(({_id,slug,thumbnail,title,channel_name,published_date}) =>{
+                return <div className="video-card" key={_id}>
+                        <Link to={`/video/${slug}`}>
+                        <img className="thumb-img" src={thumbnail} alt={slug}/>
+                        <div>{title}</div>
+                        <div>{channel_name}</div>
+                        <div>{published_date}</div>
                         </Link>
                     </div>
             })}

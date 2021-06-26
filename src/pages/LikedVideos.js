@@ -7,14 +7,14 @@ export function LikedVideos(){
     return(
         <>
         <h2>Your Liked Videos:</h2>
-        <div class="grid-card">
+        <div className="grid-card">
             {state.likedVideos.map(video=>{
-                return <div class="video-card" key={video.id}>
+                return <div className="video-card" key={video._id}>
                         <Link to={`/video/${video.slug}`}>
-                        <img class="thumb-img" src={video.imageUrl} alt={video.slug}/>
-                        <div>{video.name}</div>
-                        <div>{video.channel}</div>
-                        <div>{video.date}</div>
+                        <img className="thumb-img" src={video.thumbnail} alt={video.slug}/>
+                        <div>{video.title}</div>
+                        <div>{video.channel_name}</div>
+                        <div>{video.published_date}</div>
                         </Link>
                     </div>
             })}
