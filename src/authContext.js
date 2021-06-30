@@ -31,7 +31,7 @@ export function AuthProvider({children}){
                 if(response.status === 200){
                     setLogin(true)
                     localStorage?.setItem("login",JSON.stringify({isLogged:true}))
-                    if(state!= null) navigate(state.from)
+                    state!= null?navigate(state.from):navigate("/")
                 }
             }
             catch{
