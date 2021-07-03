@@ -22,14 +22,15 @@ export function AuthProvider({children}){
     const navigate = useNavigate();
 
     const [login,setLogin] = useState(false)
+    const [token,setToken] = useState(null)
 
-    const checkAuth = async (username,password) =>{
-        if(!login){
-            console.log(username,password)
+    const loginHandler = async (username,password) =>{
             try{
                 const response = await axios.post("https://cryptotube-backend.herokuapp.com/user/login",{username,password})
                 if(response.status === 200){
                     setLogin(true)
+                    console.log(response.data.token)
+                    setToken(response.data.token)
                     localStorage?.setItem("login",JSON.stringify({isLogged:true}))
                     state!= null?navigate(state.from):navigate("/")
                 }
@@ -38,14 +39,14 @@ export function AuthProvider({children}){
                 console.log("Invalid Username/Password")
             }
         }
-        else{
-            setLogin(false)
-            localStorage?.removeItem("login")
-        }
+
+    const logoutHandler = ()=>{
+        setLogin(false)
+        localStorage?.removeItem("login")
     }
 
     return (
-    <authContext.Provider value={{login,checkAuth}}>
+    <authContext.Provider value={{login,token,loginHandler,logoutHandler}}>
         {children}
     </authContext.Provider>
     )
