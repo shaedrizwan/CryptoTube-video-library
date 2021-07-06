@@ -15,6 +15,7 @@ export function AuthProvider({children}){
     useEffect(()=>{
         const loginStatus = JSON.parse(localStorage?.getItem("login"));
         loginStatus?.isLogged && setLogin(true);
+        loginStatus?.isLogged && setToken(loginStatus.token)
     },[])
 
 
@@ -29,9 +30,8 @@ export function AuthProvider({children}){
                 const response = await axios.post("https://cryptotube-backend.herokuapp.com/user/login",{username,password})
                 if(response.status === 200){
                     setLogin(true)
-                    console.log(response.data.token)
                     setToken(response.data.token)
-                    localStorage?.setItem("login",JSON.stringify({isLogged:true}))
+                    localStorage?.setItem("login",JSON.stringify({isLogged:true,token:response.data.token}))
                     state!= null?navigate(state.from):navigate("/")
                 }
             }
