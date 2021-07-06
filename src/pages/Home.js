@@ -3,11 +3,12 @@ import '../stylesheets/home.css';
 import {useVideo} from "../videoContext";
 
 export function Home(){
-    const {dispatch,videosDB} = useVideo();
+    const {dispatchHistory,videosDB} = useVideo();
     return(
         <div className="grid-card">
+            {!videosDB && <div>Please wait, videos are loading...</div>}
             {videosDB.map(video=>{
-                return <div onClick={()=>dispatch({type:"addToHistory",payload:video})} className="video-card" key={video._id}>
+                return <div onClick={()=>dispatchHistory({type:"addToHistory",payload:video})} className="video-card" key={video._id}>
                         <Link to={`/video/${video.slug}`}>
                         <img className="thumb-img" src={video.thumbnail} alt={video.slug}/>
                         <div>{video.title}</div>
