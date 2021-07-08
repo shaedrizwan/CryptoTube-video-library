@@ -11,6 +11,7 @@ import {NavAside} from "./nav";
 import {Login} from "./pages/Login";
 import {NoMatch} from "./pages/404";
 import { useAuth } from './authContext';
+import {PlaylistVideos} from "./pages/playlistvideos"
 
 function App() {
   const {login} = useAuth();
@@ -33,6 +34,7 @@ function App() {
            <Route path="/watch-later" element={<WatchLater/>}/>
            <Route path="/video/:slug" element={<VideoDetails/>}/>
            <Route path="/login" element={<Login/>}/>
+           <Route path="/playlist/:name" element={<PlaylistVideos/>}/>
            <Route path="*" element={<NoMatch/>}/>
          </Routes>
       </div>

@@ -5,6 +5,7 @@ import {useVideo} from "../videoContext";
 import axios from "axios";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect, useState } from "react";
 
 toast.configure()
 
@@ -14,6 +15,19 @@ export function VideoDetails(){
 
     const {videosDB} = useVideo();
     const video = videosDB.find(vid=>vid.slug === slug);
+    const [playlistPopup,setPlaylistPopup] = useState(false)
+    const [playlist,setPlaylist] = useState({})
+
+    useEffect(()=>{
+        (async function (){
+            const response = await axios.get('https://cryptotube-backend.herokuapp.com/user/playlist',{
+                headers:{
+                    Authorization:token
+                }
+            })
+            setPlaylist(response.data.playlist)
+        })()
+    },[token])
 
     const updateVideoList = async(id,type) =>{
         try{
@@ -36,6 +50,25 @@ export function VideoDetails(){
         }
     }
 
+    const addToPlaylist = async (list,videoId) =>{
+        const response = await axios.post(`https://cryptotube-backend.herokuapp.com/user/addToPlaylist`,{
+            playlist:list,
+            videoId:videoId
+        },{
+        headers:{
+            Authorization:token
+        }
+        })
+        if(response.status === 200){
+            toast.success(`Video successfully added to ${list}`,{
+                position:toast.POSITION.BOTTOM_RIGHT,
+                autoClose: 3000
+            })
+            setPlaylistPopup(false)
+        }
+    }
+
+
 
     return(
         <div className="video-main">
@@ -52,7 +85,12 @@ export function VideoDetails(){
             <div className="attr-container">
                 <div className="date">{video.published_date}</div>
                 <div onClick={()=>updateVideoList(video._id,"Likedvideos")} className="attr-items">Like</div>
-                {/* <div onClick={()=>dispatch({type:"addToPlaylist",payload:video})} className="attr-items">Playlist</div> */}
+                <div onClick={()=>setPlaylistPopup(toggle => !toggle)} className="attr-items">playlist</div>
+                {playlistPopup && <div className="playlist-popup">
+                    {playlist.map((list)=>{
+                        return <div onClick={()=>addToPlaylist(list,video._id)} key={list._id}>{list.playlistName}</div>
+                    })}
+                </div>}
                 <div onClick={()=>updateVideoList(video._id,"Watchlater")} className="attr-items">Watch Later</div>
             </div>
             <div>{video.channel_name}</div>

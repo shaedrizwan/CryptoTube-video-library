@@ -7,7 +7,20 @@
 .attr-container{
     display: flex;
     flex-direction: row;
+    position: relative;
     /* justify-content: flex-end; */
+}
+
+/* .playlist-container{
+    position: relative;
+} */
+
+.playlist-popup{
+    position: absolute;
+    top: 50px;
+    left: 150px;
+    background-color: aquamarine;
+    padding: 1rem;
 }
 
 .date{
