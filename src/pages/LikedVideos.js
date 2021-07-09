@@ -59,7 +59,7 @@ export function LikedVideos(){
                         <div>{video.channel_name}</div>
                         <div>{video.published_date}</div>
                         </Link>
-                        <button onClick={()=>RemoveFromLikedvideos(video._id)}>Remove from Watchlater</button>
+                        <button onClick={()=>RemoveFromLikedvideos(video._id)}>Remove from Liked Videos</button>
                     </div>
             })}
             {!likedVideos && <div>Loading videos...</div>}

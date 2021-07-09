@@ -14,6 +14,7 @@ export function VideoProvider({children}){
         switch(type){
             case "addToHistory": return [...state,payload];
             case "clearHistory": return state = [];
+            case "removeFromHistory": return state.filter(item => item !== payload)
             default: return state;
         }
     }

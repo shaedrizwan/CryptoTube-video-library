@@ -17,7 +17,6 @@ export function Playlist(){
                 }
             })
             if(response.status === 200){
-                console.log(response.data.playlist)
                 setPlaylist(response.data.playlist);
             }
         })()
