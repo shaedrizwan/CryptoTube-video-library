@@ -42,6 +42,7 @@ export function AuthProvider({children}){
 
     const logoutHandler = ()=>{
         setLogin(false)
+        setToken("")
         localStorage?.removeItem("login")
     }
 
