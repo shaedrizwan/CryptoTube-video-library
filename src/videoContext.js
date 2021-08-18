@@ -12,7 +12,14 @@ export function VideoProvider({children}){
 
     const AddVideoToHistory = (state,{type,payload}) =>{
         switch(type){
-            case "addToHistory": return [...state,payload];
+            case "addToHistory": {
+                const isPresent = state.find(video => video._id === payload._id)
+                if(isPresent){
+                    return state
+                }else{
+                    return [...state,payload]
+                }
+            }
             case "clearHistory": return state = [];
             case "removeFromHistory": return state.filter(item => item !== payload)
             default: return state;
