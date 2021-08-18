@@ -46,3 +46,13 @@
 .video-date{
     font-size: 0.8rem;
 }
+
+@media (max-width:800px) {
+    .video-wrapper{
+        padding:0rem
+    }
+
+    .video-img{
+        width: 90%;
+    }
+}

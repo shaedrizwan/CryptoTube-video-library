@@ -33,3 +33,9 @@
 .clear-button:hover{
     background-color: rgb(243, 202, 126);   
 }
+
+@media(max-width:800px){
+    .playlist-card{
+        max-width: 90%;
+    }
+}
