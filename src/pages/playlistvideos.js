@@ -42,6 +42,12 @@ export  function PlaylistVideos(){
                 Authorization:token
             }
         })
+        if(response.status !== 200){
+            toast.error('Failed to remove from playlist',{
+                position:toast.POSITION.BOTTOM_RIGHT,
+                autoClose: 3000
+            })
+        }
     }
 
     return(

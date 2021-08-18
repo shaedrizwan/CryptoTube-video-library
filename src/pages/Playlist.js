@@ -39,6 +39,12 @@ export function Playlist(){
                 Authorization:token
             }
         })
+        if(response.status !== 200){
+            toast.error('Playlist creation failed',{
+                position:toast.POSITION.BOTTOM_RIGHT,
+                autoClose: 3000
+            })
+        }
     }
 
     const RemovePlaylistPressed = async (playlistName) =>{
@@ -54,6 +60,12 @@ export function Playlist(){
                 Authorization:token
             }
         })
+        if(response.status !== 200){
+            toast.error('Playlist removing failed',{
+                position:toast.POSITION.BOTTOM_RIGHT,
+                autoClose: 3000
+            })
+        }
     }
 
 
