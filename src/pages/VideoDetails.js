@@ -6,6 +6,11 @@ import axios from "axios";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from "react";
+import VideoOptions from "../components/VideoOptions/VideoOptions"
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import WatchLaterIcon from '@material-ui/icons/WatchLater';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import {SemipolarLoading} from "react-loadingg";
 
 toast.configure()
 
@@ -51,7 +56,6 @@ export function VideoDetails(){
     }
 
     const addToPlaylist = async (list,videoId) =>{
-        console.log(list,videoId)
         const response = await axios.post(`https://cryptotube-backend.herokuapp.com/user/addToPlaylist`,{
             playlist:list,
             videoId:videoId
@@ -73,7 +77,7 @@ export function VideoDetails(){
 
     return(
         <div className="video-main">
-            {!video && <div>Please wait, video is loading...</div>}
+            {!video && <SemipolarLoading color="yellow" size="large" />}
             {video && <>
             <iframe src={video.youtube_url}
                 className="video-iframe"
@@ -82,19 +86,33 @@ export function VideoDetails(){
                 allowFullScreen
                 title='video'
             />
-            <h2>{video.title}</h2>
+            <div className="title">{video.title}</div>
+        
             <div className="attr-container">
-                <div className="date">{video.published_date}</div>
-                <div onClick={()=>updateVideoList(video._id,"Likedvideos")} className="attr-items">Like</div>
-                <div onClick={()=>setPlaylistPopup(toggle => !toggle)} className="attr-items">playlist</div>
+                <div onClick={()=>updateVideoList(video._id,"Likedvideos")} className="attr-items">
+                    <VideoOptions Icon={ThumbUpAltIcon} title="Like"/>
+                </div>
+                <div onClick={()=>setPlaylistPopup(toggle => !toggle)} className="attr-items">
+                <VideoOptions Icon={PlaylistAddIcon} title="Playlist"/>
+                </div>
                 {playlistPopup && <div className="playlist-popup">
                     {playlist.map((list)=>{
-                        return <div onClick={()=>addToPlaylist(list.playlistName,video._id)} key={list._id}>{list.playlistName}</div>
+                        return <div onClick={()=>addToPlaylist(list.playlistName,video._id)} key={list._id} className="playlist-popup-items">{list.playlistName}</div>
                     })}
                 </div>}
-                <div onClick={()=>updateVideoList(video._id,"Watchlater")} className="attr-items">Watch Later</div>
+                <div onClick={()=>updateVideoList(video._id,"Watchlater")} className="attr-items">
+                <VideoOptions Icon={WatchLaterIcon} title="Watchlater"/>
+                </div>
             </div>
-            <div>{video.channel_name}</div>
+
+            <div className="details-container">
+                <img src="https://yt3.ggpht.com/ytc/AKedOLRKlMd8XiIOUXc9DKEjUgt5fFy1OJgYkN9tF90F4w=s68-c-k-c0x00ffffff-no-rj" alt="profile" style={{width:"40px", height:"fit-content", borderRadius:"50%",marginRight:"10px"}}/>
+                <div className="details-container-right">
+                    <div className="details-channel">{video.channel_name}</div>
+                    <div className="details-date">{video.published_date}</div>
+                </div>
+            </div>
+        
             </>}
         </div>
         )

@@ -1,16 +1,17 @@
 // import {useVideo} from "../videoContext";
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
 import "../stylesheets/history.css";
 import { useAuth } from "../authContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import {SemipolarLoading} from "react-loadingg";
+import {VideoList} from "../components"
 
 
 toast.configure()
 
 export function WatchLater(){
-    // const {state} = useVideo();
     const {token} = useAuth();
 
     const [watchlater,setWatchlater] = useState()
@@ -54,21 +55,12 @@ export function WatchLater(){
 
     return(
         <>
-        <h2>Your Watch Later:</h2>
-        <div className="grid-card">
-            {!watchlater && <div>Loading videos...</div>}
-            {watchlater && watchlater.length === 0 && <div>You don't have any videos in Watchlater</div>}
-            {watchlater && watchlater.length !== 0 && watchlater.map(({_id,slug,thumbnail,title,channel_name,published_date})=>{
-                return <div className="video-card" key={_id}>
-                        <Link to={`/video/${slug}`}>
-                        <img className="thumb-img" src={thumbnail} alt={slug}/>
-                        <div>{title}</div>
-                        <div>{channel_name}</div>
-                        <div>{published_date}</div>
-                        </Link>
-                        <button onClick={()=>RemoveFromWatchlater(_id)}>Remove from Watchlater</button>
-                    </div>
-                    
+        <h2 style={{color:"white"}}>Your Watch Later:</h2>
+        <div className="video-wrap">
+            {!watchlater && <SemipolarLoading size="large" color="yellow"/>}
+            {watchlater && watchlater.length === 0 && <h1 style={{color:"white",margin:"1rem"}}>You do not have any videos in Watchlater</h1>}
+            {watchlater && watchlater.length !== 0 && watchlater.map(video=>{
+                return <VideoList key={video._id} video={video} dispatchFunction={()=>RemoveFromWatchlater(video._id)}/>
             })}
         </div>
         </>

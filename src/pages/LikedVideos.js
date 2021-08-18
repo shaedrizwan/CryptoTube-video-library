@@ -1,9 +1,10 @@
-import {Link} from "react-router-dom";
 import "../stylesheets/history.css";
 import { useAuth } from "../authContext";
 import { useEffect, useState } from "react";
 import {toast} from "react-toastify";
 import axios from "axios";
+import { SemipolarLoading } from 'react-loadingg';
+import { VideoList } from "../components";
 
 export function LikedVideos(){
 
@@ -49,20 +50,13 @@ export function LikedVideos(){
 
     return(
         <>
-        <h2>Your Liked Videos:</h2>
-        <div className="grid-card">
+        <h2 style={{color:"white"}}>Your Liked Videos:</h2>
+        <div className="video-wrap">
             {likedVideos && likedVideos.map(video=>{
-                return <div className="video-card" key={video._id}>
-                        <Link to={`/video/${video.slug}`}>
-                        <img className="thumb-img" src={video.thumbnail} alt={video.slug}/>
-                        <div>{video.title}</div>
-                        <div>{video.channel_name}</div>
-                        <div>{video.published_date}</div>
-                        </Link>
-                        <button onClick={()=>RemoveFromLikedvideos(video._id)}>Remove from Liked Videos</button>
-                    </div>
+                return <VideoList key={video._id} video={video} dispatchFunction={()=>RemoveFromLikedvideos(video._id)}/>
             })}
-            {!likedVideos && <div>Loading videos...</div>}
+            {!likedVideos && <SemipolarLoading size="large" color="yellow"/>}
+            {likedVideos && likedVideos.length === 0 && <h1 style={{color:"white",margin:"1rem"}}>You do not have any Liked Videos</h1>}
         </div>
         </>
     )

@@ -2,12 +2,14 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { useAuth } from "../authContext"
 import axios from 'axios'
-import "../stylesheets/history.css";
-import { Link } from "react-router-dom";
-
+import "../stylesheets/history.css"
+import { VideoList } from "../components"
+import {SemipolarLoading} from "react-loadingg"
+import { toast } from "react-toastify"
 
 export  function PlaylistVideos(){
     const {name} = useParams()
+    const pName = decodeURI(name)
     const {token} = useAuth()
     const [playlistVideos,setPlaylistVideos] = useState([])
     
@@ -19,28 +21,37 @@ export  function PlaylistVideos(){
                 }
             })
             if(response.status === 200){
-                const playlist = response.data.playlist.find(list=>list.playlistName === name)
+                const playlist = response.data.playlist.find(list=>list.playlistName === pName)
                 setPlaylistVideos(playlist.videos)
             }
         })()
 
-    },[name,token])
+    },[pName,token])
+
+    const RemoveButtonPressed = async (id) =>{
+        setPlaylistVideos(playlistVideos.filter(video => video._id !== id))
+        toast.success('Video removed successfully from the playlist',{
+            position:toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 3000
+        })
+        const response = await axios.post('https://cryptotube-backend.herokuapp.com/user/removeFromPlaylist',{
+            playlistName:pName,
+            videoId: id
+        },{
+            headers:{
+                Authorization:token
+            }
+        })
+    }
 
     return(
         <>
-            <h2>Playlist: {name}</h2>
-            <div className="grid-card">
-                {!PlaylistVideos && <div>Please wait.. Videos are loading...</div>}
-                {playlistVideos.length === 0 && <div>No videos in the playlist</div>}
+            <h2 style={{color:"white"}}>Playlist: {pName}</h2>
+            <div className="video-wrap">
+                {!PlaylistVideos && <SemipolarLoading color="yellow" size="large" /> }
+                {playlistVideos.length === 0 && <h1 style={{color:"white",margin:"2rem"}}>No videos in the playlist</h1>}
                 {playlistVideos && playlistVideos.map(video=>{
-                    return <div className="video-card" key={video._id}>
-                            <Link to={`/video/${video.slug}`}>
-                            <img className="thumb-img" src={video.thumbnail} alt={video.slug}/>
-                            <div>{video.title}</div>
-                            <div>{video.channel_name}</div>
-                            <div>{video.published_date}</div>
-                            </Link>
-                        </div>
+                    return <VideoList key={video._id} video={video} dispatchFunction={()=>RemoveButtonPressed(video._id)}/>
                 })}
             </div>
         </>
