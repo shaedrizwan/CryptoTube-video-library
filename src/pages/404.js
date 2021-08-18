@@ -1,3 +1,3 @@
 export const NoMatch = ()=>{
-    return <div>404 - No Match Found</div>
+    return <h1 style={{color:"white",margin:"2rem"}}>404 - The page you're looking for does not exist!</h1>
 }
