@@ -18,6 +18,24 @@ export function AuthProvider({children}){
         loginStatus?.isLogged && setToken(loginStatus.token)
     },[])
 
+    useEffect(()=>{
+        (
+            function(logoutHandler,navigate){
+                const UNAUTHORIZED = 401
+                axios.interceptors.response.use(
+                    (response) => response,
+                    (error)=>{
+                        if(error?.response?.status === UNAUTHORIZED){
+                            logoutHandler();
+                            navigate('/login')
+                        }
+                        return Promise.reject(error)
+                    }
+                )
+            }
+        )()
+    },[])
+
 
     const {state} = useLocation();
     const navigate = useNavigate();
