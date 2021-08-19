@@ -7,6 +7,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import {useAuth} from "../../authContext"
+import { useNavigate } from 'react-router-dom'
 
 
 function VideoPlayer({video}) {
@@ -14,16 +15,31 @@ function VideoPlayer({video}) {
     const [playlistPopup,setPlaylistPopup] = useState(false)
     const [playlist,setPlaylist] = useState({})
     const {token} = useAuth();
+    const navigate = useNavigate()
 
+    // useEffect(()=>{
+    //     (async function (){
+            // const response = await axios.get('https://cryptotube-backend.herokuapp.com/user/playlist',{
+            //     headers:{
+            //         Authorization:token
+            //     }
+            // })
+            // setPlaylist(response.data.playlist)
+    //     })()
+    // },[token])
     useEffect(()=>{
-        (async function (){
-            const response = await axios.get('https://cryptotube-backend.herokuapp.com/user/playlist',{
-                headers:{
-                    Authorization:token
+        if(token){
+            (
+                async function(){
+                    const response = await axios.get('https://cryptotube-backend.herokuapp.com/user/playlist',{
+                        headers:{
+                            Authorization:token
+                        }
+                    })
+                    setPlaylist(response.data.playlist)
                 }
-            })
-            setPlaylist(response.data.playlist)
-        })()
+            )()
+        }
     },[token])
 
 
@@ -86,10 +102,11 @@ function VideoPlayer({video}) {
                 <VideoOptions Icon={PlaylistAddIcon} title="Playlist"/>
                 </div>
                 {playlistPopup && <div className="playlist-popup">
-                    {playlist.length !== 0 && playlist.map((list)=>{
+                    {!token && navigate('/login')}
+                    {token && playlist.length !== 0 && playlist.map((list)=>{
                         return <div onClick={()=>addToPlaylist(list.playlistName,video._id)} key={list._id} className="playlist-popup-items">{list.playlistName}</div>
                     })}
-                    {playlist.length === 0 && <div className={{color:"white"}}>No playlist present</div>}
+                    {token && playlist.length === 0 && <div className={{color:"white"}}>No playlist present</div>}
                 </div>}
                 <div onClick={()=>updateVideoList(video._id,"Watchlater")} className="attr-items">
                 <VideoOptions Icon={WatchLaterIcon} title="Watchlater"/>

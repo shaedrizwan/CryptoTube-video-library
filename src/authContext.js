@@ -12,6 +12,12 @@ export function useAuth(){
 
 export function AuthProvider({children}){
 
+    const {state} = useLocation();
+    const navigate = useNavigate();
+
+    const [login,setLogin] = useState(false)
+    const [token,setToken] = useState(null)
+
     useEffect(()=>{
         const loginStatus = JSON.parse(localStorage?.getItem("login"));
         loginStatus?.isLogged && setLogin(true);
@@ -20,7 +26,7 @@ export function AuthProvider({children}){
 
     useEffect(()=>{
         (
-            function(logoutHandler,navigate){
+            function(navigate){
                 const UNAUTHORIZED = 401
                 axios.interceptors.response.use(
                     (response) => response,
@@ -33,15 +39,9 @@ export function AuthProvider({children}){
                     }
                 )
             }
-        )()
-    },[])
+        )(navigate)
+    },[navigate])
 
-
-    const {state} = useLocation();
-    const navigate = useNavigate();
-
-    const [login,setLogin] = useState(false)
-    const [token,setToken] = useState(null)
 
     const loginHandler = async (username,password) =>{
             try{
