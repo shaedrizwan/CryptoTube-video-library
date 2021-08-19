@@ -56,6 +56,7 @@ export function VideoDetails(){
     }
 
     const addToPlaylist = async (list,videoId) =>{
+        setPlaylistPopup(false)
         const response = await axios.post(`https://cryptotube-backend.herokuapp.com/user/addToPlaylist`,{
             playlist:list,
             videoId:videoId
@@ -69,7 +70,6 @@ export function VideoDetails(){
                 position:toast.POSITION.BOTTOM_RIGHT,
                 autoClose: 3000
             })
-            setPlaylistPopup(false)
         }
     }
 
@@ -96,9 +96,10 @@ export function VideoDetails(){
                 <VideoOptions Icon={PlaylistAddIcon} title="Playlist"/>
                 </div>
                 {playlistPopup && <div className="playlist-popup">
-                    {playlist.map((list)=>{
+                    {playlist.length !== 0 && playlist.map((list)=>{
                         return <div onClick={()=>addToPlaylist(list.playlistName,video._id)} key={list._id} className="playlist-popup-items">{list.playlistName}</div>
                     })}
+                    {playlist.length === 0 && <div className={{color:"white"}}>No playlist present</div>}
                 </div>}
                 <div onClick={()=>updateVideoList(video._id,"Watchlater")} className="attr-items">
                 <VideoOptions Icon={WatchLaterIcon} title="Watchlater"/>

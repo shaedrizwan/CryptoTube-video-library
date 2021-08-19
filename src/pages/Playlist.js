@@ -73,8 +73,8 @@ export function Playlist(){
         <>
         <h2 style={{color:"white"}}>Add new playlist</h2>
         <div className="new-playlist-title">Enter playlist name</div>
-        <input onChange={e=>setNewPlaylist(e.target.value)} placeholder="Playlist name" />
-        <button onClick={AddPlaylistPressed}>Add</button>
+        <input className="new-playlist-input" onChange={e=>setNewPlaylist(e.target.value)} placeholder="Playlist name" />
+        <button className="new-playlist-button" onClick={AddPlaylistPressed}>Add</button>
 
         <h2 style={{color:"white"}}>Playists</h2>
         <div>
