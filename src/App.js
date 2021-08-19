@@ -12,6 +12,7 @@ import {NoMatch} from "./pages/404";
 import { useAuth } from './authContext';
 import {PlaylistVideos} from "./pages/playlistvideos"
 import Register from './pages/Register';
+import { MobileHeader } from './components';
 
 function App() {
   const {login} = useAuth();
@@ -21,6 +22,7 @@ function App() {
   }
   return ( 
     <div className="App">
+      <MobileHeader/>
       <nav>
         <NavAside/>
       </nav>

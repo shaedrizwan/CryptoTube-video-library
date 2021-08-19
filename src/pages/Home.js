@@ -7,7 +7,8 @@ export function Home(){
     const {dispatchHistory,videosDB} = useVideo();
     return(
         <div className="video-wrapper">
-            {!videosDB && <CommonLoading size="large"/>}
+            {!videosDB && <CommonLoading color="yellow" size="large"/>}
+            {videosDB && videosDB.length === 0 && <CommonLoading color="yellow" size="large"/>}
             {videosDB && videosDB.map(video=>{
                 return <div className="video-container" onClick={()=>dispatchHistory({type:"addToHistory",payload:video})} key={video._id}>
                         <Link className="video-link-wrapper" to={`/video/${video.slug}`}>
