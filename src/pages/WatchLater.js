@@ -1,5 +1,3 @@
-// import {useVideo} from "../videoContext";
-// import {Link} from "react-router-dom";
 import "../stylesheets/history.css";
 import { useAuth } from "../authContext";
 import { useEffect, useState } from "react";
